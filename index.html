@@ -10,7 +10,7 @@
 <body>
   <div class="container">
     <ul class="comments">
-      <li class="comment">
+      <!--<li class="comment">
         <div class="comment-header">
           <div class="head-name">Глеб Фокин</div>
           <div class="head-time">12.02.22 12:18</div>
@@ -43,7 +43,7 @@
             <button class="like-button -active-like"></button>
           </div>
         </div>
-      </li>
+      </li>-->
     </ul>
     <div class="add-form">
       <input type="text" class="add-form-name" placeholder="Введите ваше имя" />
@@ -66,55 +66,125 @@
   const tapedComment = document.querySelector(".comment-text");
   const newLike = document.querySelector(".likes");
   const likesCounter = document.querySelector(".likes-counter");
-  const likeButton = document.querySelector(".like-button");
+  
   const newName = document.querySelector(".head-name");
   const newTime = document.querySelector(".head-time");
   const ComHeader = document.querySelector(".comment-header");
   const comFooter = document.querySelector(".comment-footer");
-  
+
+  //addComment.addEventListener("click", function () {
+    //if (addName.value !== "" && addText.value !== "") {
+      //const newCommentElement = document.createElement("li");
+      //newCommentElement.classList.add("comment");
+      //addList.appendChild(newCommentElement);
+      //const newComHeaderElement = document.createElement("div");
+      //newComHeaderElement.classList.add("comment-header");
+      //newCommentElement.appendChild(newComHeaderElement);
+      //const newNameElement = document.createElement("div");
+      //newNameElement.classList.add("head-name");
+      //newNameElement.innerHTML = `${addName.value}`;
+      //newComHeaderElement.appendChild(newNameElement);
+      //const newTimeElement = document.createElement("div");
+      //newTimeElement.classList.add("head-time");
+      //newTimeElement.innerHTML = `${new Date().toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', year: '2-digit' })} ${new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}`;
+      //newComHeaderElement.appendChild(newTimeElement);
+      //const newTapedElement = document.createElement("div");
+      //newTapedElement.classList.add("comment-body");
+      //newCommentElement.appendChild(newTapedElement);
+      //const newTextElement = document.createElement("div");
+      //newTextElement.classList.add("comment-text");
+      //newTextElement.innerHTML = `${addText.value}`;
+      //newTapedElement.appendChild(newTextElement);
+      //const newFooterElement = document.createElement("div");
+      //newFooterElement.classList.add("comment-footer");
+      //newCommentElement.appendChild(newFooterElement);
+      //const newLikeElement = document.createElement("div");
+      //newLikeElement.classList.add("likes");
+      //newFooterElement.appendChild(newLikeElement);
+      //const newLikeCounterElement = document.createElement("span");
+      //newLikeCounterElement.classList.add("likes-counter");
+      //newLikeCounterElement.textContent = '0';
+      //newLikeElement.appendChild(newLikeCounterElement);
+      //const newLikeButtonElement = document.createElement("button");
+      //newLikeButtonElement.classList.add("like-button");
+      //newLikeElement.appendChild(newLikeButtonElement);
+    //}
+    //else if (addName.value === '') {
+      //alert("Введите ваше имя.");
+    //} else if (addText.value === '') {
+      //alert("Введите ваш коментарий.");
+    //}
+  //});
+  let comments = [
+    {
+      name: "Глеб Фокин",
+      time: "12.02.22 12:18",
+      text: "Это будет первый комментарий на этой странице",
+      likes: 0,
+      liked: false
+
+    },
+    {
+      name: "Варвара Н.",
+      time: "13.02.22 19:22",
+      text: "Мне нравится как оформлена эта страница! ❤",
+      likes: 75,
+      liked: true
+    }
+  ]
+  function renderComments() {
+      addList.innerHTML = comments.map((comment, index) => {
+        return `
+      <li class="comment" data-index=${index}>
+        <div class="comment-header">
+          <div class="head-name">${comment.name}</div>
+          <div class="head-time">${comment.time}
+          </div>
+        </div>  
+        <div class="comment-body">
+          <div class="comment-text">
+            ${comment.text}
+          </div>
+        </div>
+        <div class="comment-footer">
+          <div class="likes">
+            <span class="likes-counter">${comment.likes}</span>
+            <button data-index="${index}" class="like-button ${comment.liked ? "-active-like" : ""}"></button>
+          </div>
+        </div>
+      </li>`
+      })
+      .join("");
+      const likeButtons = document.querySelectorAll(".like-button");
+      for (const likeButton of likeButtons) {
+        likeButton.addEventListener("click", function () {
+          const index = likeButton.dataset.index;
+          const comment = comments[index];
+          comment.likes = comment.liked ? comment.likes -1 : comment.likes +1;
+          comment.liked =!comment.liked;
+          renderComments();
+      });
+    }}
+  renderComments();
   addComment.addEventListener("click", function () {
-    if (addName.value !=="" && addText.value !== "") {
-      const newCommentElement = document.createElement("li");
-      newCommentElement.classList.add("comment");
-      addList.appendChild(newCommentElement);
-      const newComHeaderElement = document.createElement("div");
-      newComHeaderElement.classList.add("comment-header");
-      newCommentElement.appendChild(newComHeaderElement);
-      const newNameElement = document.createElement("div");
-      newNameElement.classList.add("head-name");
-      newNameElement.innerHTML = `${addName.value}`;
-      newComHeaderElement.appendChild(newNameElement);
-      const newTimeElement = document.createElement("div");
-      newTimeElement.classList.add("head-time");
-      newTimeElement.innerHTML = `${new Date().toLocaleString('ru-RU', {day: '2-digit', month: '2-digit', year: '2-digit'})} ${new Date().toLocaleTimeString('ru-RU', {hour: '2-digit', minute: '2-digit'})}`;
-      newComHeaderElement.appendChild(newTimeElement);
-      const newTapedElement = document.createElement("div");
-      newTapedElement.classList.add("comment-body");
-      newCommentElement.appendChild(newTapedElement);
-      const newTextElement = document.createElement("div");
-      newTextElement.classList.add("comment-text");
-      newTextElement.innerHTML = `${addText.value}`;
-      newTapedElement.appendChild(newTextElement);
-      const newFooterElement = document.createElement("div");
-      newFooterElement.classList.add("comment-footer");
-      newCommentElement.appendChild(newFooterElement);
-      const newLikeElement = document.createElement("div");
-      newLikeElement.classList.add("likes");
-      newFooterElement.appendChild(newLikeElement);
-      const newLikeCounterElement = document.createElement("span");
-      newLikeCounterElement.classList.add("likes-counter");
-      newLikeCounterElement.textContent = '0';
-      newLikeElement.appendChild(newLikeCounterElement);
-      const newLikeButtonElement = document.createElement("button");
-      newLikeButtonElement.classList.add("like-button");
-      newLikeElement.appendChild(newLikeButtonElement);      
-    }
-    else if (addName.value === '') {
-      alert("Введите ваше имя.");
-    } else if (addText.value === '') {
-      alert("Введите ваш коментарий.");
-    }
-  });
+      if (addName.value!== "" && addText.value!== "") {
+        const pushComment = {
+          name: addName.value,
+          time: `${new Date().toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', year: '2-digit' })} ${new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}`,
+          text: addText.value,
+          likes: 0,
+          liked: false
+        };
+        comments.push(pushComment);
+        renderComments();
+        addName.value = "";
+        addText.value = "";
+      } else if (addName.value === '') {
+        alert("Введите ваше имя.");
+      } else if (addText.value === '') {
+        alert("Введите ваш коментарий.");
+      }
+  })
   console.log("It works!");
 </script>
 
