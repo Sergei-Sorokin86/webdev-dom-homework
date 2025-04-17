@@ -47,7 +47,7 @@
     </ul>
     <div class="add-form">
       <input type="text" class="add-form-name" placeholder="Введите ваше имя" />
-      <textarea type="textarea" class="add-form-text" placeholder="Введите ваш коментарий" rows="4"></textarea>
+      <textarea id="text-input" type="textarea" class="add-form-text" placeholder="Введите ваш коментарий" rows="4"></textarea>
       <div class="add-form-row">
         <button class="add-form-button">Написать</button>
       </div>
@@ -61,12 +61,11 @@
   const addText = document.querySelector(".add-form-text");
   const addComment = document.querySelector(".add-form-button");
   const addList = document.querySelector(".comments");
-  const newComment = document.querySelector(".comment");
   const comBody = document.querySelector(".comment-body");
   const tapedComment = document.querySelector(".comment-text");
   const newLike = document.querySelector(".likes");
   const likesCounter = document.querySelector(".likes-counter");
-  
+  const responceComment = document.getElementById("text-input");
   const newName = document.querySelector(".head-name");
   const newTime = document.querySelector(".head-time");
   const ComHeader = document.querySelector(".comment-header");
@@ -132,6 +131,9 @@
       liked: true
     }
   ]
+  const sanitizeHTML = (value) => {
+    return value.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+  }
   function renderComments() {
       addList.innerHTML = comments.map((comment, index) => {
         return `
@@ -157,21 +159,29 @@
       .join("");
       const likeButtons = document.querySelectorAll(".like-button");
       for (const likeButton of likeButtons) {
-        likeButton.addEventListener("click", function () {
+        likeButton.addEventListener("click", function (event) {
+          event.stopPropagation();
           const index = likeButton.dataset.index;
           const comment = comments[index];
           comment.likes = comment.liked ? comment.likes -1 : comment.likes +1;
           comment.liked =!comment.liked;
           renderComments();
-      });
-    }}
+      });}
+      const commentElements = document.querySelectorAll(".comment");
+      for (const commentElement of commentElements) {
+        commentElement.addEventListener('click', () => {
+          const currentComment = comments[commentElement.dataset.index];
+          responceComment.value = `${currentComment.name}:${currentComment.text}`;
+        })
+      }
+  }
   renderComments();
   addComment.addEventListener("click", function () {
       if (addName.value!== "" && addText.value!== "") {
         const pushComment = {
-          name: addName.value,
+          name: sanitizeHTML(addName.value),
           time: `${new Date().toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', year: '2-digit' })} ${new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}`,
-          text: addText.value,
+          text: sanitizeHTML(addText.value),
           likes: 0,
           liked: false
         };
