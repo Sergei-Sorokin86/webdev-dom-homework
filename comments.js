@@ -14,4 +14,4 @@ export let comments = [
       likes: 75,
       liked: true
     }
-  ]
+  ];

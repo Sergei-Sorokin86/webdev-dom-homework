@@ -1,5 +1,7 @@
 import {comments} from "./comments.js"
-export function renderComments() {
+import { initLikeListeners, initReplyListeners } from "./initListeners.js";
+export const renderComments = () => {
+    const addList = document.querySelector(".comments");
     addList.innerHTML = comments.map((comment, index) => {
       return `
     <li class="comment" data-index=${index}>
@@ -16,27 +18,11 @@ export function renderComments() {
       <div class="comment-footer">
         <div class="likes">
           <span class="likes-counter">${comment.likes}</span>
-          <button data-index="${index}" class="like-button ${comment.liked ? "-active-like" : ""}"></button>
+          <button aria-label="like-button" data-index="${index}" class="like-button ${comment.liked ? "-active-like" : ""}"></button>
         </div>
       </div>
     </li>`
     })
     .join("");
-    const likeButtons = document.querySelectorAll(".like-button");
-    for (const likeButton of likeButtons) {
-      likeButton.addEventListener("click", function (event) {
-        event.stopPropagation();
-        const index = likeButton.dataset.index;
-        const comment = comments[index];
-        comment.likes = comment.liked ? comment.likes -1 : comment.likes +1;
-        comment.liked =!comment.liked;
-        renderComments();
-    });}
-    const commentElements = document.querySelectorAll(".comment");
-    for (const commentElement of commentElements) {
-      commentElement.addEventListener('click', () => {
-        const currentComment = comments[commentElement.dataset.index];
-        responceComment.value = `${currentComment.name}:${currentComment.text}`;
-      })
-    }
-}
+    initLikeListeners(renderComments);
+    initReplyListeners();}

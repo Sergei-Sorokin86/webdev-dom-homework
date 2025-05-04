@@ -1,2 +1,5 @@
+
+import { addInitCommentListener } from "./initListeners.js"
 import { renderComments } from "./renderComments.js"
-renderComments()
+renderComments();
+addInitCommentListener(renderComments)
