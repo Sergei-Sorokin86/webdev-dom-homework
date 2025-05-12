@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <title>Проект "Комменты"</title>
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css" />
 </head>
 
@@ -46,16 +47,17 @@
       </li>-->
     </ul>
     <div class="add-form">
-      <input type="text" class="add-form-name" placeholder="Введите ваше имя" />
+      <input id="name-input" type="text" class="add-form-name" placeholder="Введите ваше имя" />
       <textarea id="text-input" type="textarea" class="add-form-text" placeholder="Введите ваш коментарий" rows="4"></textarea>
       <div class="add-form-row">
         <button class="add-form-button">Написать</button>
       </div>
     </div>
   </div>
+<script type="module" src="./index.js"></script> 
 </body>
 
-<script>
+<!-- <script>
   "use strict";
   const addName = document.querySelector(".add-form-name");
   const addText = document.querySelector(".add-form-text");
@@ -71,50 +73,7 @@
   const ComHeader = document.querySelector(".comment-header");
   const comFooter = document.querySelector(".comment-footer");
 
-  //addComment.addEventListener("click", function () {
-    //if (addName.value !== "" && addText.value !== "") {
-      //const newCommentElement = document.createElement("li");
-      //newCommentElement.classList.add("comment");
-      //addList.appendChild(newCommentElement);
-      //const newComHeaderElement = document.createElement("div");
-      //newComHeaderElement.classList.add("comment-header");
-      //newCommentElement.appendChild(newComHeaderElement);
-      //const newNameElement = document.createElement("div");
-      //newNameElement.classList.add("head-name");
-      //newNameElement.innerHTML = `${addName.value}`;
-      //newComHeaderElement.appendChild(newNameElement);
-      //const newTimeElement = document.createElement("div");
-      //newTimeElement.classList.add("head-time");
-      //newTimeElement.innerHTML = `${new Date().toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', year: '2-digit' })} ${new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}`;
-      //newComHeaderElement.appendChild(newTimeElement);
-      //const newTapedElement = document.createElement("div");
-      //newTapedElement.classList.add("comment-body");
-      //newCommentElement.appendChild(newTapedElement);
-      //const newTextElement = document.createElement("div");
-      //newTextElement.classList.add("comment-text");
-      //newTextElement.innerHTML = `${addText.value}`;
-      //newTapedElement.appendChild(newTextElement);
-      //const newFooterElement = document.createElement("div");
-      //newFooterElement.classList.add("comment-footer");
-      //newCommentElement.appendChild(newFooterElement);
-      //const newLikeElement = document.createElement("div");
-      //newLikeElement.classList.add("likes");
-      //newFooterElement.appendChild(newLikeElement);
-      //const newLikeCounterElement = document.createElement("span");
-      //newLikeCounterElement.classList.add("likes-counter");
-      //newLikeCounterElement.textContent = '0';
-      //newLikeElement.appendChild(newLikeCounterElement);
-      //const newLikeButtonElement = document.createElement("button");
-      //newLikeButtonElement.classList.add("like-button");
-      //newLikeElement.appendChild(newLikeButtonElement);
-    //}
-    //else if (addName.value === '') {
-      //alert("Введите ваше имя.");
-    //} else if (addText.value === '') {
-      //alert("Введите ваш коментарий.");
-    //}
-  //});
-  let comments = [
+let comments = [
     {
       name: "Глеб Фокин",
       time: "12.02.22 12:18",
@@ -196,6 +155,6 @@
       }
   })
   console.log("It works!");
-</script>
+</script> -->
 
 </html>
