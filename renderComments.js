@@ -7,7 +7,7 @@ export const renderComments = () => {
     <li class="comment" data-index=${index}>
       <div class="comment-header">
         <div class="head-name">${comment.name}</div>
-        <div class="head-time">${comment.time}
+        <div class="head-time">${comment.date}
         </div>
       </div>  
       <div class="comment-body">
